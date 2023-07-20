@@ -20,5 +20,15 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    App\Service\TodoApiSettingService:
+        arguments:
+            $apiSettings:
+                providerOne:
+                    url: '%env(PROVIDER_ONE_URL)%'
+                    secret_key: ''
+                providerTwo:
+                    url: '%env(PROVIDER_TWO_URL)%'
+                    secret_key: ''
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
