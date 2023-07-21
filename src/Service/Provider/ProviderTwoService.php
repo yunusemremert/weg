@@ -78,9 +78,9 @@ final class ProviderTwoService extends TodoApiService implements TodoInterface
 
             $processTodos = new TodoApiDto();
 
-            $processTodos->setTodoTitle(array_key_first($todo));
-            $processTodos->setTodoDuration($content['estimated_duration']);
-            $processTodos->setTodoLevel($content['level']);
+            $processTodos->setTitle(array_key_first($todo));
+            $processTodos->setDuration($content['estimated_duration']);
+            $processTodos->setLevel($content['level']);
 
             $processTodosAll[] = $processTodos;
         }

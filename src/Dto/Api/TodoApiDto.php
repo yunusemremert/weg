@@ -4,55 +4,55 @@ namespace App\Dto\Api;
 
 class TodoApiDto
 {
-    private string $todoTitle;
-    private int $todoDuration;
-    private int $todoLevel = 0;
+    private string $title;
+    private int $duration;
+    private int $level;
 
     /**
      * @return string
      */
-    public function getTodoTitle(): string
+    public function getTitle(): string
     {
-        return $this->todoTitle;
+        return $this->title;
     }
 
     /**
-     * @param string $todoTitle
+     * @param string $title
      */
-    public function setTodoTitle(string $todoTitle): void
+    public function setTitle(string $title): void
     {
-        $this->todoTitle = $todoTitle;
-    }
-
-    /**
-     * @return int
-     */
-    public function getTodoDuration(): int
-    {
-        return $this->todoDuration;
-    }
-
-    /**
-     * @param int $todoDuration
-     */
-    public function setTodoDuration(int $todoDuration): void
-    {
-        $this->todoDuration = $todoDuration;
+        $this->title = $title;
     }
 
     /**
      * @return int
      */
-    public function getTodoLevel(): int
+    public function getDuration(): int
     {
-        return $this->todoLevel;
+        return $this->duration;
     }
 
     /**
-     * @param int $todoLevel
+     * @param int $duration
      */
-    public function setTodoLevel(int $todoLevel): void
+    public function setDuration(int $duration): void
     {
-        $this->todoLevel = $todoLevel;
+        $this->duration = $duration;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLevel(): int
+    {
+        return $this->level;
+    }
+
+    /**
+     * @param int $level
+     */
+    public function setLevel(int $level): void
+    {
+        $this->level = $level;
     }
 }

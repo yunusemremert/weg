@@ -76,9 +76,9 @@ final class ProviderOneService extends TodoApiService implements TodoInterface
         foreach ($todos as $todo) {
             $processTodos = new TodoApiDto();
 
-            $processTodos->setTodoTitle($todo['id']);
-            $processTodos->setTodoDuration($todo['sure']);
-            $processTodos->setTodoLevel($todo['zorluk']);
+            $processTodos->setTitle($todo['id']);
+            $processTodos->setDuration($todo['sure']);
+            $processTodos->setLevel($todo['zorluk']);
 
             $processTodosAll[] = $processTodos;
         }

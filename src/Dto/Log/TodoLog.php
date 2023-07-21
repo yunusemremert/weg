@@ -4,55 +4,55 @@ namespace App\Dto\Log;
 
 class TodoLog
 {
-    private string $errorTitle;
-    private string $errorMessage;
-    private int $errorType = 0;
+    private string $title;
+    private string $message;
+    private int $status = 0;
 
     /**
      * @return string
      */
-    public function getErrorTitle(): string
+    public function getTitle(): string
     {
-        return $this->errorTitle;
+        return $this->title;
     }
 
     /**
-     * @param string $errorTitle
+     * @param string $title
      */
-    public function setErrorTitle(string $errorTitle): void
+    public function setTitle(string $title): void
     {
-        $this->errorTitle = $errorTitle;
+        $this->title = $title;
     }
 
     /**
      * @return string
      */
-    public function getErrorMessage(): string
+    public function getMessage(): string
     {
-        return $this->errorMessage;
+        return $this->message;
     }
 
     /**
-     * @param string $errorMessage
+     * @param string $message
      */
-    public function setErrorMessage(string $errorMessage): void
+    public function setMessage(string $message): void
     {
-        $this->errorMessage = $errorMessage;
+        $this->message = $message;
     }
 
     /**
      * @return int
      */
-    public function getErrorType(): int
+    public function getStatus(): int
     {
-        return $this->errorType;
+        return $this->status;
     }
 
     /**
-     * @param int $errorType
+     * @param int $status
      */
-    public function setErrorType(int $errorType): void
+    public function setStatus(int $status): void
     {
-        $this->errorType = $errorType;
+        $this->status = $status;
     }
 }
