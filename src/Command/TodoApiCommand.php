@@ -69,6 +69,8 @@ class TodoApiCommand extends Command
                     $provider->writeTodoToDatabase($processTodos);
 
                     $io->note(count($todos) . ' Jobs pulled from api service : ' . $provider->getTitleServiceName());
+                } else {
+                    throw new \RuntimeException($response['message'] . ' ' . $provider->getTitleServiceName());
                 }
 
                 //sleep(1);

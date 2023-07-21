@@ -28,7 +28,7 @@ abstract class TodoApiService
 
     }
 
-    public function writeTodoLogDatabase(TodoLog $todoLog): void
+    protected function writeTodoLogDatabase(TodoLog $todoLog): void
     {
         // TODO: Implement writeTodoLogDatabase() method.
     }

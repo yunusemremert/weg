@@ -62,6 +62,12 @@ final class ProviderTwoService extends TodoApiService implements TodoInterface
                 'message' => $transportException->getTraceAsString()
             ];
         }
+
+        return [
+            'status' => 500,
+            'success' => false,
+            'message' => "Api services are not running!"
+        ];
     }
 
     public function processTodoData(array $todos): object
