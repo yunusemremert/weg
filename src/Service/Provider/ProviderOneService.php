@@ -3,11 +3,11 @@
 namespace App\Service\Provider;
 
 use App\Dto\Api\TodoApiDto;
+use App\Dto\Log\TodoLog;
 use App\Interface\TodoInterface;
 use App\Service\AbstractTodoApiService;
 use App\Service\TodoApiSettingService;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -19,14 +19,12 @@ final class ProviderOneService extends AbstractTodoApiService implements TodoInt
     public function __construct(
         EntityManagerInterface $entityManager,
         HttpClientInterface $httpClient,
-        LoggerInterface $logger,
         TodoApiSettingService $todoApiSettingService
     )
     {
         parent::__construct(
             $entityManager,
             $httpClient,
-            $logger,
             $todoApiSettingService
         );
 
@@ -44,29 +42,58 @@ final class ProviderOneService extends AbstractTodoApiService implements TodoInt
 
     public function getTodosFromApi(): array
     {
+        // Log DTO
+        $logDto = new TodoLog();
+
+        $logDto->setProviderName($this->getTitleServiceName());
+        $logDto->setRequestName("getTodosFromApi");
+        $logDto->setRequestBody(json_encode([]));
+        $logDto->setCreatedAt(new \DateTime());
+
         try {
             $response = $this->httpClient->request('GET', '');
 
             if ($response->getStatusCode() == Response::HTTP_OK) {
-                return [
+                $responseMessage = [
                     'status' => 200,
                     'success' => 'true',
                     'message' => $response->toArray()
                 ];
+
+                // Log DTO
+                $logDto->setResponseBody(json_encode($responseMessage));
+
+                $this->writeTodoLogDatabase($logDto);
+
+                return $responseMessage;
             }
         }  catch (TransportExceptionInterface $transportException) {
-            return [
+            $responseMessage = [
                 'status' => 400,
                 'success' => 'false',
                 'message' => $transportException->getTraceAsString()
             ];
+
+            // Log DTO
+            $logDto->setResponseBody(json_encode($responseMessage));
+
+            $this->writeTodoLogDatabase($logDto);
+
+            return $responseMessage;
         }
 
-        return [
+        $responseMessage = [
             'status' => 500,
             'success' => 'false',
             'message' => "Api services are not running!"
         ];
+
+        // Log DTO
+        $logDto->setResponseBody(json_encode($responseMessage));
+
+        $this->writeTodoLogDatabase($logDto);
+
+        return $responseMessage;
     }
 
     public function processTodoData(array $todos): object

@@ -55,7 +55,7 @@ class TodoApiCommand extends Command
 
         //sleep(1);
 
-        $io->section('Please wait while the jobs are being retrieved from the API..');
+        $io->section('Please wait while the jobs are being retrieved from the API');
 
         sleep(2);
 
