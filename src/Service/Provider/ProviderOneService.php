@@ -80,8 +80,8 @@ final class ProviderOneService extends TodoApiService implements TodoInterface
         return (object) $processTodosAll;
     }
 
-    public function writeTodoToDatabase(object $data): void
+    public function writeTodoToDatabase(object $todos): void
     {
-        $this->addTodoToDatabase($data);
+        $this->addTodoToDatabase($todos);
     }
 }

@@ -11,7 +11,7 @@ class TodoApiSettingService
         $this->apiSettings = $apiSettings;
     }
 
-    protected function getApiSetting(string $apiName): array
+    public function getApiSetting(string $apiName): array
     {
         return $this->apiSettings[$apiName] ?? [];
     }

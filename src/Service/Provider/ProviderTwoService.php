@@ -7,6 +7,7 @@ use App\Interface\TodoInterface;
 use App\Service\TodoApiService;
 use App\Service\TodoApiSettingService;
 use Doctrine\ORM\EntityManagerInterface;
+use JetBrains\PhpStorm\NoReturn;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
@@ -82,8 +83,8 @@ final class ProviderTwoService extends TodoApiService implements TodoInterface
         return (object) $processTodosAll;
     }
 
-    public function writeTodoToDatabase(object $data): void
+    public function writeTodoToDatabase(object $todos): void
     {
-        $this->addTodoToDatabasea($data);
+        $this->addTodoToDatabase($todos);
     }
 }

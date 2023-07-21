@@ -4,11 +4,10 @@ namespace App\Service;
 
 use App\Dto\Log\TodoLog;
 use Doctrine\ORM\EntityManagerInterface;
-use JetBrains\PhpStorm\NoReturn;
 use Psr\Log\LoggerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-abstract class TodoApiService extends TodoApiSettingService
+abstract class TodoApiService
 {
     public function __construct(
         protected EntityManagerInterface $entityManager,
@@ -24,9 +23,9 @@ abstract class TodoApiService extends TodoApiSettingService
         return $this->todoApiSettingService->getApiSetting($providerName);
     }
 
-    #[NoReturn] protected function addTodoToDatabase(object $data): void
+    protected function addTodoToDatabase(object $todos): void
     {
-        dd($data);
+
     }
 
     public function writeTodoLogDatabase(TodoLog $todoLog): void
