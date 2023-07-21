@@ -9,6 +9,7 @@ class TodoLog
     private string $requestBody;
     private string $responseBody;
     private int $responseType = 0; // 0: Error, 1: Success
+    private \DateTime $createdAt;
 
     /**
      * @return string
@@ -88,5 +89,21 @@ class TodoLog
     public function setResponseType(int $responseType): void
     {
         $this->responseType = $responseType;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     */
+    public function setCreatedAt(\DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
     }
 }
