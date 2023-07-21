@@ -20,31 +20,38 @@ Installation
 
 1. 
 ```shell
-php bin/console doctrine:database:create
+copy .env .env.local
 ```
 
 2. 
 ```shell
-php bin/console make:migration
+php bin/console doctrine:database:create
 ```
 
 3. 
 ```shell
-php bin/console doctrine:migrations:migrate
+php bin/console make:migration
 ```
 
 4. 
 ```shell
-php bin/console doctrine:fixtures:load
+php bin/console doctrine:migrations:migrate
 ```
 
 5. 
+```shell
+php bin/console doctrine:fixtures:load
+```
+
+6. 
 ````shell
 php bin/console app:get-todo-api
 ````
 
-6. 
+7. 
 ```
+APP_TIMEZONE=Europe/Istanbul
+
 DATABASE_URL="mysql://app:!ChangeMe!@127.0.0.1:3306/app?serverVersion=8.0.32&charset=utf8mb4"
 
 PROVIDER_ONE_URL=http://www.mocky.io/v2/5d47f24c330000623fa3ebfa
