@@ -43,7 +43,7 @@ class TodoApiCommand extends Command
 
         $io->caution('Please make database connection settings before things are pulled from api');
 
-        //sleep(2);
+        sleep(2);
 
         $io->ask('Is your database connection active?', 'yes', function (string $status): string { // no
             if ($status != 'yes') {
@@ -53,7 +53,7 @@ class TodoApiCommand extends Command
             return $status;
         });
 
-        //sleep(1);
+        sleep(1);
 
         $io->section('Please wait while the jobs are being retrieved from the API');
 
@@ -91,7 +91,7 @@ class TodoApiCommand extends Command
                     throw new \RuntimeException($message);
                 }
 
-                //sleep(1);
+                sleep(1);
             } catch (\Throwable $throwable) {
                 $this->logger->info($throwable->getTraceAsString());
 
@@ -99,7 +99,7 @@ class TodoApiCommand extends Command
             }
         }
 
-        //sleep(2);
+        sleep(2);
 
         $io->success('Thank you for waiting, jobs are saved in database');
 
