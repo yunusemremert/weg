@@ -57,14 +57,14 @@ final class ProviderTwoService extends AbstractTodoApiService implements TodoInt
         }  catch (TransportExceptionInterface $transportException) {
             return [
                 'status' => 400,
-                'success' => false,
+                'success' => 'false',
                 'message' => $transportException->getTraceAsString()
             ];
         }
 
         return [
             'status' => 500,
-            'success' => false,
+            'success' => 'false',
             'message' => "Api services are not running!"
         ];
     }
