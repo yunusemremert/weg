@@ -4,7 +4,7 @@ namespace App\Service\Provider;
 
 use App\Dto\Api\TodoApiDto;
 use App\Interface\TodoInterface;
-use App\Service\TodoApiService;
+use App\Service\AbstractTodoApiService;
 use App\Service\TodoApiSettingService;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-final class ProviderOneService extends TodoApiService implements TodoInterface
+final class ProviderOneService extends AbstractTodoApiService implements TodoInterface
 {
     static string $name = "providerOne";
 

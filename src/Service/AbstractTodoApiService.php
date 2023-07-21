@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-abstract class TodoApiService
+abstract class AbstractTodoApiService
 {
     public function __construct(
         protected EntityManagerInterface $entityManager,
