@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Service\Provider\ProviderOneService;
 use App\Service\Provider\ProviderTwoService;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -16,14 +17,18 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class TodoApiCommand extends Command
 {
+    private LoggerInterface $logger;
     private array $providers;
 
     public function __construct(
+        LoggerInterface $logger,
         ProviderOneService $providerOneService,
         ProviderTwoService $providerTwoService
     )
     {
         parent::__construct();
+
+        $this->logger = $logger;
 
         $this->providers = [$providerOneService, $providerTwoService];
     }
@@ -61,21 +66,36 @@ class TodoApiCommand extends Command
                 if ($response['status'] == 200) {
                     $todos        = $response['message'];
                     $processTodos = $provider->processTodoData($todos);
+                    $processTodosArray = (array) $processTodos;
 
-                    if (empty($processTodos)) {
-                        throw new \RuntimeException('Failed to pull data from api service : ' . $provider->getTitleServiceName());
+                    if (empty($processTodosArray)) {
+                        $message = 'Failed to pull data from api service : ' . $provider->getTitleServiceName();
+
+                        $this->logger->alert($message);
+
+                        throw new \RuntimeException($message);
                     }
 
                     $provider->writeTodoToDatabase($processTodos);
 
-                    $io->note(count($todos) . ' Jobs pulled from api service : ' . $provider->getTitleServiceName());
+                    $message = count($todos) . ' Jobs pulled from api service : ' . $provider->getTitleServiceName();
+
+                    $this->logger->info($message);
+
+                    $io->note($message);
                 } else {
-                    throw new \RuntimeException($response['message'] . ' ' . $provider->getTitleServiceName());
+                    $message = $response['message'] . ' : ' . $provider->getTitleServiceName();
+
+                    $this->logger->critical($message);
+
+                    throw new \RuntimeException($message);
                 }
 
                 //sleep(1);
             } catch (\Throwable $throwable) {
-                throw new \RuntimeException($throwable->getTraceAsString());
+                $this->logger->info($throwable->getTraceAsString());
+
+                throw new \RuntimeException("Api services are not running!");
             }
         }
 
