@@ -4,55 +4,89 @@ namespace App\Dto\Log;
 
 class TodoLog
 {
-    private string $title;
-    private string $message;
-    private int $status = 0;
+    private string $providerName;
+    private string $requestName;
+    private string $requestBody;
+    private string $responseBody;
+    private int $responseType = 0; // 0: Error, 1: Success
 
     /**
      * @return string
      */
-    public function getTitle(): string
+    public function getProviderName(): string
     {
-        return $this->title;
+        return $this->providerName;
     }
 
     /**
-     * @param string $title
+     * @param string $providerName
      */
-    public function setTitle(string $title): void
+    public function setProviderName(string $providerName): void
     {
-        $this->title = $title;
+        $this->providerName = $providerName;
     }
 
     /**
      * @return string
      */
-    public function getMessage(): string
+    public function getRequestName(): string
     {
-        return $this->message;
+        return $this->requestName;
     }
 
     /**
-     * @param string $message
+     * @param string $requestName
      */
-    public function setMessage(string $message): void
+    public function setRequestName(string $requestName): void
     {
-        $this->message = $message;
+        $this->requestName = $requestName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequestBody(): string
+    {
+        return $this->requestBody;
+    }
+
+    /**
+     * @param string $requestBody
+     */
+    public function setRequestBody(string $requestBody): void
+    {
+        $this->requestBody = $requestBody;
+    }
+
+    /**
+     * @return string
+     */
+    public function getResponseBody(): string
+    {
+        return $this->responseBody;
+    }
+
+    /**
+     * @param string $responseBody
+     */
+    public function setResponseBody(string $responseBody): void
+    {
+        $this->responseBody = $responseBody;
     }
 
     /**
      * @return int
      */
-    public function getStatus(): int
+    public function getResponseType(): int
     {
-        return $this->status;
+        return $this->responseType;
     }
 
     /**
-     * @param int $status
+     * @param int $responseType
      */
-    public function setStatus(int $status): void
+    public function setResponseType(int $responseType): void
     {
-        $this->status = $status;
+        $this->responseType = $responseType;
     }
 }
