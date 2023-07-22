@@ -23,7 +23,7 @@ abstract class AbstractTodoApiService
         return $this->todoApiSettingService->getApiSetting($providerName);
     }
 
-    protected function addTodoToDatabase(object $todos): void
+    protected function addTodoToDatabase(array $todos): void
     {
         foreach ($todos as $todo) {
             $todoEntity = new Todo();

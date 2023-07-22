@@ -5,6 +5,6 @@ namespace App\Interface;
 interface TodoInterface
 {
     public function getTodosFromApi(): array;
-    public function processTodoData(array $todos): object;
-    public function writeTodoToDatabase(object $todos): void;
+    public function processTodoData(array $todos): array;
+    public function writeTodoToDatabase(array $todos): void;
 }

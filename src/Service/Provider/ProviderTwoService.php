@@ -96,7 +96,7 @@ final class ProviderTwoService extends AbstractTodoApiService implements TodoInt
         return $responseMessage;
     }
 
-    public function processTodoData(array $todos): object
+    public function processTodoData(array $todos): array
     {
         $processTodosAll = [];
 
@@ -112,10 +112,10 @@ final class ProviderTwoService extends AbstractTodoApiService implements TodoInt
             $processTodosAll[] = $processTodos;
         }
 
-        return (object) $processTodosAll;
+        return $processTodosAll;
     }
 
-    public function writeTodoToDatabase(object $todos): void
+    public function writeTodoToDatabase(array $todos): void
     {
         $this->addTodoToDatabase($todos);
     }

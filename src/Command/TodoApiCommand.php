@@ -53,8 +53,6 @@ class TodoApiCommand extends Command
             return $status;
         });
 
-        sleep(1);
-
         $io->section('Please wait while the jobs are being retrieved from the API');
 
         sleep(2);
@@ -66,9 +64,8 @@ class TodoApiCommand extends Command
                 if ($response['status'] == 200) {
                     $todos        = $response['message'];
                     $processTodos = $provider->processTodoData($todos);
-                    $processTodosArray = (array) $processTodos;
 
-                    if (empty($processTodosArray)) {
+                    if (empty($processTodos)) {
                         $message = 'Failed to pull data from api service : ' . $provider->getTitleServiceName();
 
                         $this->logger->alert($message);
