@@ -14,6 +14,51 @@ Installation
   Support" (LTS) versions and has a [release process][6] that is predictable and
   business-friendly.
 
+Project Description
+------------
+<p>Developing a web application that will capture to-do business information from 2 separate providers, share it with the development team on a weekly basis, and output it to the screen.</p>
+
+<p>In each provider service, the name of the task gives the duration (in hours), the degree of difficulty. There are 5 developers in total and the size of work each developer can do in 1 hour is as follows:</p>
+
+<table>
+<thead>
+<tr>
+<th>Developer</th>
+<th>Duration</th>
+<th>Difficulty</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dev-1</td>
+<td align="center">1</td>
+<td align="center">1x</td>
+</tr>
+<tr>
+<td>Dev-2</td>
+<td align="center">1</td>
+<td align="center">2x</td>
+</tr>
+<tr>
+<td>Dev-3</td>
+<td align="center">1</td>
+<td align="center">3x</td>
+</tr>
+<tr>
+<td>Dev-4</td>
+<td align="center">1</td>
+<td align="center">4x</td>
+</tr>
+<tr>
+<td>Dev-5</td>
+<td align="center">1</td>
+<td align="center">5x</td>
+</tr>
+</tbody>
+</table>
+
+<p>Assuming that the developers work 45 hours a week, an interface should be prepared that will print the weekly developer-based work schedule and the minimum total number of weeks the work will be completed, with an algorithm that ensures that the work is completed as soon as possible.</p>
+
 ---
 
 ### To get started, follow these steps:
@@ -30,25 +75,20 @@ php bin/console doctrine:database:create
 
 3. 
 ```shell
-php bin/console make:migration
+php bin/console doctrine:migrations:migrate
 ```
 
 4. 
 ```shell
-php bin/console doctrine:migrations:migrate
-```
-
-5. 
-```shell
 php bin/console doctrine:fixtures:load
 ```
 
-6. 
+5. 
 ````shell
 php bin/console app:get-todo-api
 ````
 
-7. 
+6. 
 ```
 APP_TIMEZONE=Europe/Istanbul
 
