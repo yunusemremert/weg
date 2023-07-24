@@ -63,32 +63,40 @@ Project Description
 
 ### To get started, follow these steps:
 
-1. 
+#### Please open the terminal of the project and run it (Step: 1, 2, 3, 4, 5, 6, 8)
+
+1. Install the required packages using composer by running the following command:
+
+```shell
+composer install
+```
+
+2. Please create the .env file with the following command line.
 ```shell
 copy .env .env.local
 ```
 
-2. 
+3. Create your database by running the following command:
 ```shell
 php bin/console doctrine:database:create
 ```
 
-3. 
+4. Migrate your database by running the following command:
 ```shell
 php bin/console doctrine:migrations:migrate
 ```
 
-4. 
+5. Add the developers to the database by running the following command:
 ```shell
 php bin/console doctrine:fixtures:load
 ```
 
-5. 
+6. Extract the job information from the api addresses and add it to the database by running the following command:
 ````shell
 php bin/console app:get-todo-api
 ````
 
-6. 
+7. Please fill in the .env file with the required configurations below.
 ```
 APP_TIMEZONE=Europe/Istanbul
 
@@ -96,6 +104,11 @@ DATABASE_URL="mysql://app:!ChangeMe!@127.0.0.1:3306/app?serverVersion=8.0.32&cha
 
 PROVIDER_ONE_URL=http://www.mocky.io/v2/5d47f24c330000623fa3ebfa
 PROVIDER_TWO_URL=http://www.mocky.io/v2/5d47f235330000623fa3ebf7
+```
+
+8. Please start server
+```shell
+symfony server:start
 ```
 
 [1]: https://symfony.com
