@@ -19,7 +19,7 @@ class TodoController extends AbstractController
         $todos = $this->todoService->getAssignedTodos();
 
         return $this->render('todo/index.html.twig', [
-            'controller_name' => 'TodoController',
+            'todos' => $todos
         ]);
     }
 }

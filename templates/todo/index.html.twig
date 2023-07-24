@@ -1,20 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TodoController!{% endblock %}
+{% block title %}Todos{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/macbookpro/Code/case-study/weg/src/Controller/TodoController.php'|file_link(0) }}">src/Controller/TodoController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/macbookpro/Code/case-study/weg/templates/todo/index.html.twig'|file_link(0) }}">templates/todo/index.html.twig</a></code></li>
-    </ul>
-</div>
+    {% for todo in todos %}
+        <div class="card mb-4 text-center">
+            <div class="card-header">
+                <span class="font-weight-bold">{{ todo.name }}</span>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between">
+            {% for key, todoWeek in todo.todos %}
+                <div>
+                    <div class="text-center mb-1">{{ key }}. Week</div>
+                    <ol class="list-group list-group-numbered">
+                        {% for todoList in todoWeek %}
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">{{ todoList.title }}</div>
+                                    {{ todoList.duration }} hours
+                                </div>
+                                <span class="badge bg-primary rounded-pill">{{ todoList.level }}</span>
+                            </li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="mb-3"></div>
+    {% endfor %}
 {% endblock %}
