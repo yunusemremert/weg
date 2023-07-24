@@ -88,7 +88,7 @@ final class TodoService
             if (array_key_exists('devId', $val)) {
                 $result[$val['devId']][] = $val;
             } else {
-                $result[""][] = $val;
+                $result[''][] = $val;
             }
         }
 
@@ -104,13 +104,26 @@ final class TodoService
 
             krsort($todoWeek);
 
+            $weekDuration = [];
             foreach ($todoWeek as $todo) {
-                $assignedWeekTodos[$todoWeek[0]['devId']]['todos'][$todo['week']][] = [
-                    'title' => $todo["title"],
-                    'level' => $todo["level"],
-                    'duration' => $todo["duration"]
-                ];
+                $weekDuration[$todoWeek[0]['devId']][$todo['week']][] = $todo['duration'];
             }
+
+            $totalDuration = 0;
+
+            foreach ($todoWeek as $todo) {
+                $assignedWeekTodos[$todoWeek[0]['devId']]['weekTodos'][$todo['week']]['todos'][] = [
+                    'title' => $todo['title'],
+                    'level' => $todo['level'],
+                    'duration' => $todo['duration']
+                ];
+
+                $assignedWeekTodos[$todoWeek[0]['devId']]['weekTodos'][$todo['week']]['weekDuration'] = array_sum($weekDuration[$todoWeek[0]['devId']][$todo['week']]);
+
+                $totalDuration += $todo['duration'];
+            }
+
+            $assignedWeekTodos[$todoWeek[0]['devId']]['totalDuration'] = $totalDuration;
         }
 
         return $assignedWeekTodos;

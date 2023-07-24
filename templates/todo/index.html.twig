@@ -6,21 +6,24 @@
     {% for todo in todos %}
         <div class="card mb-4 text-center">
             <div class="card-header">
-                <span class="font-weight-bold">{{ todo.name }}</span>
+                <span class="fw-bold">{{ todo.name }}</span>
+                <p class="mb-0" style="font-size: 14px;">({{ todo.weekTodos|length }} week, {{ todo.totalDuration}} hours )</p>
             </div>
         </div>
         <div class="d-flex justify-content-between">
-            {% for key, todoWeek in todo.todos %}
+            {% for key, todoWeek in todo.weekTodos %}
                 <div>
-                    <div class="text-center mb-1">{{ key }}. Week</div>
+                    <div class="text-center mb-1">{{ key }}. Week
+                        <p class="mb-0" style="font-size: 11px;">({{ todoWeek.weekDuration }} hours)</p>
+                    </div>
                     <ol class="list-group list-group-numbered">
-                        {% for todoList in todoWeek %}
+                        {% for todoList in todoWeek.todos %}
                             <li class="list-group-item d-flex justify-content-between align-items-start">
                                 <div class="ms-2 me-auto">
                                     <div class="fw-bold">{{ todoList.title }}</div>
-                                    {{ todoList.duration }} hours
+                                    <span style="font-size: 13px;">{{ todoList.duration }} hours</span>
                                 </div>
-                                <span class="badge bg-primary rounded-pill">{{ todoList.level }}</span>
+                                <span class="badge bg-primary rounded-pill ms-2">{{ todoList.level }}x</span>
                             </li>
                         {% endfor %}
                     </ol>
