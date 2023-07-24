@@ -59,6 +59,8 @@ Project Description
 
 <p>Assuming that the developers work 45 hours a week, an interface should be prepared that will print the weekly developer-based work schedule and the minimum total number of weeks the work will be completed, with an algorithm that ensures that the work is completed as soon as possible.</p>
 
+<p>*** To pull this data from APIs, command (console) will be written and saved in the database. On the main page, it will show the data by drawing the planning result with the data it reads from the database.</p>
+
 ---
 
 ### To get started, follow these steps:
