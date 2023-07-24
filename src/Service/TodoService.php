@@ -35,12 +35,12 @@ final class TodoService
                     }
 
                     $assignTodos[] = [
-                        "devId" => $developer->getId(),
-                        "devName" => $developer->getName(),
-                        "week" => $week,
-                        "title" => $todo->getTitle(),
-                        "level" => $todo->getLevel(),
-                        "duration" => $todoDuration
+                        'devId' => $developer->getId(),
+                        'devName' => $developer->getName(),
+                        'week' => $week,
+                        'title' => $todo->getTitle(),
+                        'level' => $todo->getLevel(),
+                        'duration' => $todoDuration
                     ];
 
                     $assignedTodosId[] = $todo->getId();
@@ -85,8 +85,8 @@ final class TodoService
         $result = array();
 
         foreach ($data as $val) {
-            if (array_key_exists("devId", $val)) {
-                $result[$val["devId"]][] = $val;
+            if (array_key_exists('devId', $val)) {
+                $result[$val['devId']][] = $val;
             } else {
                 $result[""][] = $val;
             }
@@ -100,15 +100,15 @@ final class TodoService
         $assignedWeekTodos = [];
 
         foreach ($todos as $key => $todoWeek) {
-            $assignedWeekTodos[$todoWeek[0]["devId"]]["name"] = $todoWeek[0]["devName"];
+            $assignedWeekTodos[$todoWeek[0]['devId']]['name'] = $todoWeek[0]['devName'];
 
             krsort($todoWeek);
 
             foreach ($todoWeek as $todo) {
-                $assignedWeekTodos[$todoWeek[0]["devId"]]["todos"][$todo["week"]][] = [
-                    "title" => $todo["title"],
-                    "level" => $todo["level"],
-                    "duration" => $todo["duration"]
+                $assignedWeekTodos[$todoWeek[0]['devId']]['todos'][$todo['week']][] = [
+                    'title' => $todo["title"],
+                    'level' => $todo["level"],
+                    'duration' => $todo["duration"]
                 ];
             }
         }
