@@ -113,6 +113,10 @@ PROVIDER_TWO_URL=http://www.mocky.io/v2/5d47f235330000623fa3ebf7
 symfony server:start
 ```
 
+<br>
+
+![alt text](screenshot.png)
+
 [1]: https://symfony.com
 [2]: https://symfony.com/projects
 [3]: https://symfony.com/doc/current/reference/requirements.html
