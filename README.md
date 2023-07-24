@@ -113,7 +113,9 @@ PROVIDER_TWO_URL=http://www.mocky.io/v2/5d47f235330000623fa3ebf7
 symfony server:start
 ```
 
-<br>
+---
+
+#### App Screenshot :
 
 ![alt text](screenshot.png)
 
