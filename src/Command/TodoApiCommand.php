@@ -10,6 +10,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\HttpFoundation\Response;
 
 #[AsCommand(
     name: 'app:get-todo-api',
@@ -61,32 +62,32 @@ class TodoApiCommand extends Command
             try {
                 $response = $provider->getTodosFromApi();
 
-                if ($response['status'] == 200) {
-                    $todos        = $response['message'];
-                    $processTodos = $provider->processTodoData($todos);
-
-                    if (empty($processTodos)) {
-                        $message = 'Failed to pull data from api service : ' . $provider->getTitleServiceName();
-
-                        $this->logger->alert($message);
-
-                        throw new \RuntimeException($message);
-                    }
-
-                    $provider->writeTodoToDatabase($processTodos);
-
-                    $message = count($todos) . ' Jobs pulled from api service : ' . $provider->getTitleServiceName();
-
-                    $this->logger->info($message);
-
-                    $io->note($message);
-                } else {
+                if (Response::HTTP_OK != $response['status']) {
                     $message = $response['message'] . ' : ' . $provider->getTitleServiceName();
 
                     $this->logger->critical($message);
 
                     throw new \RuntimeException($message);
                 }
+
+                $todos        = $response['message'];
+                $processTodos = $provider->processTodoData($todos);
+
+                if (empty($processTodos)) {
+                    $message = 'Failed to pull data from api service : ' . $provider->getTitleServiceName();
+
+                    $this->logger->alert($message);
+
+                    throw new \RuntimeException($message);
+                }
+
+                $provider->writeTodoToDatabase($processTodos);
+
+                $message = count($todos) . ' Jobs pulled from api service : ' . $provider->getTitleServiceName();
+
+                $this->logger->info($message);
+
+                $io->note($message);
 
                 sleep(1);
             } catch (\Throwable $throwable) {
