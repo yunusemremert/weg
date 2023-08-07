@@ -38,7 +38,7 @@ abstract class AbstractTodoApiService
         $this->entityManager->flush();
     }
 
-    protected function writeTodoLogDatabase(TodoLog $todoLog): void
+    public function writeTodoLogDatabase(TodoLog $todoLog): void
     {
         $requestLog = new RequestLog();
 

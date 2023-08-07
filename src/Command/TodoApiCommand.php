@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Dto\Log\TodoLog;
 use App\Service\Provider\ProviderOneService;
 use App\Service\Provider\ProviderTwoService;
 use Psr\Log\LoggerInterface;
@@ -59,11 +60,18 @@ class TodoApiCommand extends Command
         sleep(2);
 
         foreach ($this->providers as $provider) {
+            $providerName = $provider->getTitleServiceName();
+
             try {
                 $response = $provider->getTodosFromApi();
 
+                // Log DB
+                $logDto = $this->logDto($providerName, $response['message']);
+
+                $provider->writeTodoLogDatabase($logDto);
+
                 if (Response::HTTP_OK != $response['status']) {
-                    $message = $response['message'] . ' : ' . $provider->getTitleServiceName();
+                    $message = $response['message'] . ' : ' . $providerName;
 
                     $this->logger->critical($message);
 
@@ -74,7 +82,7 @@ class TodoApiCommand extends Command
                 $processTodos = $provider->processTodoData($todos);
 
                 if (empty($processTodos)) {
-                    $message = 'Failed to pull data from api service : ' . $provider->getTitleServiceName();
+                    $message = 'Failed to pull data from api service : ' . $providerName;
 
                     $this->logger->alert($message);
 
@@ -83,7 +91,7 @@ class TodoApiCommand extends Command
 
                 $provider->writeTodoToDatabase($processTodos);
 
-                $message = count($todos) . ' Jobs pulled from api service : ' . $provider->getTitleServiceName();
+                $message = count($todos) . ' Jobs pulled from api service : ' . $providerName;
 
                 $this->logger->info($message);
 
@@ -91,6 +99,11 @@ class TodoApiCommand extends Command
 
                 sleep(1);
             } catch (\Throwable $throwable) {
+                // Log DB
+                $logDto = $this->logDto($providerName, ['message' => $throwable->getTraceAsString()]);
+
+                $provider->writeTodoLogDatabase($logDto);
+
                 $this->logger->info($throwable->getTraceAsString());
 
                 throw new \RuntimeException("Api services are not running!");
@@ -102,5 +115,19 @@ class TodoApiCommand extends Command
         $io->success('Thank you for waiting, jobs are saved in database');
 
         return Command::SUCCESS;
+    }
+
+    private function logDto(string $serviceName, array $responseMessage): TodoLog
+    {
+        // Log DTO
+        $logDto = new TodoLog();
+
+        $logDto->setProviderName($serviceName);
+        $logDto->setRequestName("getTodosFromApi");
+        $logDto->setRequestBody(json_encode([]));
+        $logDto->setCreatedAt(new \DateTime());
+        $logDto->setResponseBody(json_encode($responseMessage));
+
+        return $logDto;
     }
 }
