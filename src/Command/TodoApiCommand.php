@@ -66,7 +66,7 @@ class TodoApiCommand extends Command
                 $response = $provider->getTodosFromApi();
 
                 // Log DB
-                $logDto = $this->logDto($providerName, $response['message']);
+                $logDto = $this->logDto($providerName, $response['message'], Response::HTTP_OK == $response['status'] ? 1 : 0);
 
                 $provider->writeTodoLogDatabase($logDto);
 
@@ -117,7 +117,7 @@ class TodoApiCommand extends Command
         return Command::SUCCESS;
     }
 
-    private function logDto(string $serviceName, array $responseMessage): TodoLog
+    private function logDto(string $serviceName, array $responseMessage, int $responseType = 0): TodoLog
     {
         // Log DTO
         $logDto = new TodoLog();
@@ -125,8 +125,9 @@ class TodoApiCommand extends Command
         $logDto->setProviderName($serviceName);
         $logDto->setRequestName("getTodosFromApi");
         $logDto->setRequestBody(json_encode([]));
-        $logDto->setCreatedAt(new \DateTime());
         $logDto->setResponseBody(json_encode($responseMessage));
+        $logDto->setResponseType($responseType);
+        $logDto->setCreatedAt(new \DateTime());
 
         return $logDto;
     }
